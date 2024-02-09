@@ -1,7 +1,8 @@
-import axios, { AxiosResponse } from "axios";
 import { useState, useEffect } from "react";
+import axios, { AxiosResponse } from "axios";
 import { ItemsIndex } from "./ItemsIndex";
 import { ItemsNew } from "./ItemsNew";
+// import { ItemsUpdate } from "./ItemsUpdate";
 
 interface Item {
   id: number;
@@ -11,43 +12,38 @@ interface Item {
   color: string;
   fit: string;
   category_id: number;
+  category_name: string;
+  filename?: string[]; // New attribute for filename
 }
 
 export function Content() {
   const [items, setItems] = useState<Item[]>([]);
 
   const handleIndexItems = () => {
-    console.log("handleIndexItems");
     axios.get<Item[]>("http://127.0.0.1:5000/items.json").then((response) => {
-      console.log(response.data);
       setItems(response.data);
+      console.log("Fetched items:", response.data);
     });
   };
 
   const handleCreateItem = (formData: FormData, successCallback: () => void) => {
-    const itemData = {
-      name: formData.get("name") as string,
-      brand: formData.get("brand") as string,
-      size: Number(formData.get("size")),
-      color: formData.get("color") as string,
-      fit: formData.get("fit") as string,
-      category_id: Number(formData.get("category_id")),
-    };
-    console.log({itemData})
     axios
-      .post<Item>("http://127.0.0.1:5000/items.json", formData) 
+      .post<Item>("http://127.0.0.1:5000/items.json", formData)
       .then((response: AxiosResponse<Item>) => {
-        setItems([...items, response.data]);
+        setItems(prevItems => [...prevItems, response.data]); // Update items state with new item
         successCallback();
-      });
+      })
+      // .catch(error => {
+      //   console.error("Error creating item:", error);
+      // });
   };
-  
   
   useEffect(handleIndexItems, []);
 
   return (
     <main>
       <ItemsNew onCreateItem={handleCreateItem} />
+      {/* <ItemsUpdate onUpdateItem={handleUpdate} /> */}
       <ItemsIndex items={items} />
     </main>
   );
