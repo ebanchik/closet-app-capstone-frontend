@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ItemsUpdate } from './ItemsUpdate'; // Import ItemsUpdate component
 import { Item } from './ItemsIndex';
+import DeleteButton from './DeleteButton';
 
 // Define the Category interface
 interface Category {
@@ -14,6 +15,7 @@ interface Category {
 export const ItemPage: React.FC = () => {
   const [item, setItem] = useState<Item | null>(null);
   const [categories, setCategories] = useState<Category[]>([]); // State for categories
+  const [showUpdateForm, setShowUpdateForm] = useState(false); // New state to toggle form visibility
   const { id } = useParams(); // Get the id parameter from the URL
 
   // Function to fetch item details
@@ -26,6 +28,10 @@ export const ItemPage: React.FC = () => {
       console.error('Error fetching item details:', error);
     }
   }, [id]); // Dependency array includes id
+
+    const toggleUpdateFormVisibility = () => {
+    setShowUpdateForm(!showUpdateForm);
+  };
 
   // Function to fetch categories
   const fetchCategories = useCallback(async () => {
@@ -83,10 +89,14 @@ export const ItemPage: React.FC = () => {
           <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
         ))}
       </div>
+      {/* Button to toggle the update form */}
+      <button onClick={toggleUpdateFormVisibility}>{showUpdateForm ? 'Hide Update Form' : 'Edit Item'}</button>
       {/* Conditionally render the ItemsUpdate form */}
-      <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />
+      {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
+      <DeleteButton itemId={item.id} />
     </div>
   );
 };
+
 
 export default ItemPage;
