@@ -22,33 +22,35 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
   return (
     <div>
       <h1>All items</h1>
-      {props.items.map((item) => {
-        console.log("Item:", item); // Log the item object
-        try {
-          return (
-            <div key={item.id}>
-              <Link to={`/item/${item.id}`}>
-                <h2>{item.name}</h2>
-              </Link>
-              {/* <p>id: {item.id}</p> */}
-              <p>Brand: {item.brand}</p>
-              {/* <p>Size: {item.size}</p>
-              <p>Color: {item.color}</p>
-              <p>Fit: {item.fit}</p>
-              <p>Category: {item.category_name}</p> */}
-              {/* Display images for the item */}
-              <div>
-                {item.filenames && item.filenames.map((filename, index) => (
-                  <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                ))}
+      <div className="row g-4">
+        {props.items.map((item) => {
+          console.log("Item:", item); // Log the item object
+          try {
+            const firstImageSrc = item.filenames && item.filenames.length >  0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
+
+            return (
+              <div key={item.id} className="col-12 col-md-4 col-lg-3">
+                <div className="card h-100" style={{ width: '18rem' }}>
+                  {firstImageSrc && <img className="card-img-top" src={firstImageSrc} alt="Item Image" />}
+                  <div className="card-body">
+                    <h5 className="card-title"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
+                    <p className="card-text">
+                      Brand: {item.brand}<br />
+                      {/* Add other item details here */}
+                    </p>
+                    <Link to={`/item/${item.id}`} className="btn btn-primary">View Details</Link>
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        } catch (error) {
-          console.error("Error rendering item:", error); // Log any rendering errors
-          return null; // Return null if there's an error
-        }
-      })}
+            );
+          } catch (error) {
+            console.error("Error rendering item:", error); // Log any rendering errors
+            return null; // Return null if there's an error
+          }
+        })}
+      </div>
     </div>
   );
 }
+
+export default ItemsIndex;

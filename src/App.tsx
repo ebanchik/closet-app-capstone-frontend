@@ -4,6 +4,8 @@ import { Content } from "./Content";
 import { Footer } from "./Footer";
 import { ItemPage } from "./ItemPage";
 import { ItemsNew } from "./ItemsNew";
+import './App.css';
+
 
 function App() {
   return (

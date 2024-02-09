@@ -23,6 +23,7 @@ export const ItemPage: React.FC = () => {
     const itemId = Number(id); // Convert id to number
     try {
       const response = await axios.get<Item>(`http://127.0.0.1:5000/items/${itemId}.json`);
+      console.log('Fetched item details:', response.data);
       setItem(response.data);
     } catch (error) {
       console.error('Error fetching item details:', error);
