@@ -7,6 +7,7 @@ export interface Item {
   size: number;
   color: string;
   fit: string;
+  category_id: number;
   category_name?: string;
   filenames?: string[]; // Assuming the filenames are stored in an array
 }
@@ -29,18 +30,16 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
               <Link to={`/item/${item.id}`}>
                 <h2>{item.name}</h2>
               </Link>
-              <p>id: {item.id}</p>
+              {/* <p>id: {item.id}</p> */}
               <p>Brand: {item.brand}</p>
-              <p>Size: {item.size}</p>
+              {/* <p>Size: {item.size}</p>
               <p>Color: {item.color}</p>
               <p>Fit: {item.fit}</p>
-              <p>Category: {item.category_name}</p>
+              <p>Category: {item.category_name}</p> */}
               {/* Display images for the item */}
               <div>
                 {item.filenames && item.filenames.map((filename, index) => (
-                <p>hello
                   <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                  </p>
                 ))}
               </div>
             </div>

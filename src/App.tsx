@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import { Content } from "./Content";
 import { Footer } from "./Footer";
 import { ItemPage } from "./ItemPage";
+import { ItemsNew } from "./ItemsNew";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Content />} />
           <Route path="/item/:id" element={<ItemPage />} />
+          <Route path="/new-item" element={<ItemsNew />} />
         </Routes>
         <Footer />
       </div>

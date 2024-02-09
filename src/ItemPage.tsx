@@ -1,37 +1,70 @@
-import React, { useEffect, useState } from 'react';
+// ItemPage.tsx
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { ItemsUpdate } from './ItemsUpdate'; // Import ItemsUpdate component
+import { Item } from './ItemsIndex';
 
-interface Item {
+// Define the Category interface
+interface Category {
   id: number;
-  name: string;
-  brand: string;
-  size: number;
-  color: string;
-  fit: string;
-  category_name?: string;
-  filenames?: string[];
+  category_name: string;
 }
 
 export const ItemPage: React.FC = () => {
   const [item, setItem] = useState<Item | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]); // State for categories
   const { id } = useParams(); // Get the id parameter from the URL
 
-  useEffect(() => {
-    console.log(`Fetching item details for ID: ${id}`);
+  // Function to fetch item details
+  const fetchItemDetails = useCallback(async () => {
     const itemId = Number(id); // Convert id to number
-    // Fetch item details based on the ID
-    axios.get<Item>(`http://127.0.0.1:5000/items/${itemId}.json`)
-      .then(response => {
-        console.log('Item details fetched successfully:', response.data);
-        setItem(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching item details:', error);
-      });
-  }, [id]); // Fetch item details whenever the ID changes
+    try {
+      const response = await axios.get<Item>(`http://127.0.0.1:5000/items/${itemId}.json`);
+      setItem(response.data);
+    } catch (error) {
+      console.error('Error fetching item details:', error);
+    }
+  }, [id]); // Dependency array includes id
 
-  if (!item) {
+  // Function to fetch categories
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await axios.get<Category[]>('http://127.0.0.1:5000/categories.json');
+      setCategories(response.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  }, []); // No dependencies, so it runs once on mount
+
+  // Fetch item details when the component mounts or when itemId changes
+  useEffect(() => {
+    fetchItemDetails();
+  }, [fetchItemDetails]); // Dependency array includes fetchItemDetails
+
+  // Fetch categories when the component mounts
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]); // Dependency array includes fetchCategories
+
+  const handleUpdateItem = async (formData: FormData, successCallback: () => void) => {
+    if (!item) {
+      console.error('Cannot update item: item data is not available');
+      return;
+    }
+
+    try {
+      const response = await axios.patch(`http://127.0.0.1:5000/items/${item.id}.json`, formData);
+      console.log('Item updated successfully:', response.data);
+      // Refresh the item data after successful update
+      fetchItemDetails();
+      successCallback();
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
+  };
+
+  if (!item || !categories) {
     return <div>Loading...</div>;
   }
 
@@ -50,6 +83,8 @@ export const ItemPage: React.FC = () => {
           <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
         ))}
       </div>
+      {/* Conditionally render the ItemsUpdate form */}
+      <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />
     </div>
   );
 };

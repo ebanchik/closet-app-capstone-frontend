@@ -1,16 +1,24 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
+interface NewItemResponse {
+  id: number;
+  name: string;
+  brand: string;
+  size: number;
+  color: string;
+  fit: string;
+  category_id: number;
+  category_name: string;
+  filename?: string[]; // New attribute for filename
+}
+
 export interface Category {
   id: number;
   category_name: string;
 }
 
-interface ItemsNewProps {
-  onCreateItem: (formData: FormData, successCallback: () => void) => void;
-}
-
-export function ItemsNew(props: ItemsNewProps): JSX.Element {
+export function ItemsNew(): JSX.Element {
   const [categories, setCategories] = useState<Category[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -26,25 +34,25 @@ export function ItemsNew(props: ItemsNewProps): JSX.Element {
       });
   }, []);
 
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   // Handle file change here
-  //   // For example, you can log the selected file
-  //   const selectedFile = event.target.files?.[0];
-  //   console.log("Selected file:", selectedFile);
-  // };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Form Submitted");
-  
+
     // Create a FormData object from the form
     const formData = new FormData(event.currentTarget);
-  
+
     // Log the form data before submission
     console.log("Form Data (before submission):", Array.from(formData.entries()));
-  
+
     console.log("Submitting form data to backend...");
-    props.onCreateItem(formData, () => formRef.current?.reset());
+    try {
+      const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData);
+      console.log("Item created successfully:", response.data);
+      // Reset the form
+      formRef.current?.reset();
+    } catch (error) {
+      console.error("Error creating item:", error);
+    }
   };
   
 
