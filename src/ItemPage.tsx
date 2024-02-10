@@ -77,7 +77,7 @@ export const ItemPage: React.FC = () => {
 
   return (
     <div>
-      <h1>{item.name}</h1>
+      <h1 className='item-title'>{item.name}</h1>
       <p>ID: {item.id}</p>
       <p>Brand: {item.brand}</p>
       <p>Size: {item.size}</p>

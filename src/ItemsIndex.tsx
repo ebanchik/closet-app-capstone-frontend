@@ -20,8 +20,13 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
   console.log("Number of items:", props.items.length); // Log the number of items
 
   return (
-    <div>
-      <h1>All items</h1>
+    <section className='index'>
+      <div className="homepage">
+        <h1 className='homepage-text'>
+          Armoire
+        </h1>
+      </div>
+      <h1 className='index-header'>Current Wardrobe:</h1>
       <div className="row g-4">
         {props.items.map((item) => {
           console.log("Item:", item); // Log the item object
@@ -30,10 +35,10 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
 
             return (
               <div key={item.id} className="col-12 col-md-4 col-lg-3">
-                <div className="card h-100" style={{ width: '18rem' }}>
+                <div className="card h-100 custom-card-font" style={{ width: '18rem' }}>
                   {firstImageSrc && <img className="card-img-top" src={firstImageSrc} alt="Item Image" />}
                   <div className="card-body">
-                    <h5 className="card-title"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
+                    <h5 className="card-title card-title-custom"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
                     <p className="card-text">
                       Brand: {item.brand}<br />
                       {/* Add other item details here */}
@@ -49,7 +54,7 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
           }
         })}
       </div>
-    </div>
+    </section>
   );
 }
 

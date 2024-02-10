@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Header } from "./Header";
 import { Content } from "./Content";
+// import { ItemsIndex } from "./ItemsIndex";
 import { Footer } from "./Footer";
 import { ItemPage } from "./ItemPage";
 import { ItemsNew } from "./ItemsNew";

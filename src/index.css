@@ -2,3 +2,7 @@
 html {
   scroll-behavior: smooth;
 }
+
+.card {
+  font-family: 'Object Sans', fallbackFont, sans-serif; /* Replace 'Your Font Family' with the actual font name */
+}
