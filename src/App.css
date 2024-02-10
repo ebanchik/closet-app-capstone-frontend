@@ -46,10 +46,26 @@ body {
 
 /********************************* HEADER *************************************/
 .navbar-brand {
-  color: rgb(241, 255, 241)!important;
-  font-size: 30px !important;
+  color: rgb(241,  255,  241)!important;
+  font-size:  25px !important;
   font-family: 'Right Sans'; /* Fallback to sans-serif if Soria is not available */
- }
+}
+
+.navbar-buttons {
+  gap:   1px; /* Space between buttons */
+}
+
+.home-button, .login, .logout {
+  flex:   1; /* Allow buttons to grow and shrink */
+  text-align: center;
+  padding:   5px   15px;
+  transition: transform  0.3s ease; /* Smooth transition for the transform property */
+  will-change: transform; /* Hint to the browser that the element will be transformed */
+}
+
+.home-button:hover, .holder-button:hover {
+  transform: scale(0.95); /* Scale down the button to  95% of its original size */
+}
 
 /* In your CSS file */
 .home-button {
