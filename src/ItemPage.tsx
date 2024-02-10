@@ -76,7 +76,7 @@ export const ItemPage: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className='item-content'>
       <h1 className='item-title'>{item.name}</h1>
       <p>ID: {item.id}</p>
       <p>Brand: {item.brand}</p>
@@ -85,16 +85,18 @@ export const ItemPage: React.FC = () => {
       <p>Fit: {item.fit}</p>
       <p>Category: {item.category_name}</p>
       {/* Display images for the item */}
-      <div>
+      <div className='image-wrapper'>
         {item.filenames && item.filenames.map((filename, index) => (
-          <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+          <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '500px', maxHeight: '500px' }} />
         ))}
       </div>
       {/* Button to toggle the update form */}
-      <button onClick={toggleUpdateFormVisibility}>{showUpdateForm ? 'Hide Update Form' : 'Edit Item'}</button>
+      <button className='edit-button' onClick={toggleUpdateFormVisibility}>{showUpdateForm ? 'Hide Update Form' : 'Edit Item'}</button>
       {/* Conditionally render the ItemsUpdate form */}
       {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
-      <DeleteButton itemId={item.id} />
+      <div className='delete-button'>
+        <DeleteButton itemId={item.id} />
+      </div>
     </div>
   );
 };

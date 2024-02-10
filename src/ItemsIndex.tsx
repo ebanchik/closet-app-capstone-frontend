@@ -40,10 +40,10 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
                   <div className="card-body">
                     <h5 className="card-title card-title-custom"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
                     <p className="card-text">
-                      Brand: {item.brand}<br />
+                      {item.brand}<br />
                       {/* Add other item details here */}
                     </p>
-                    <Link to={`/item/${item.id}`} className="btn btn-primary">View Details</Link>
+                    {/* <Link to={`/item/${item.id}`} className="btn btn-primary">View Details</Link> */}
                   </div>
                 </div>
               </div>
