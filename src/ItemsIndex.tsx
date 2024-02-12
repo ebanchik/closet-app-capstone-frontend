@@ -26,7 +26,7 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
           Armoire
         </h1>
       </div>
-      <h1 className='index-header'>Current Wardrobe:</h1>
+      <h1 className='index-header'>CURRENT WARDROBE:</h1>
       <div className="row g-4">
         {props.items.map((item) => {
           console.log("Item:", item); // Log the item object

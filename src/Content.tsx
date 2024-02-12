@@ -20,9 +20,20 @@ export function Content() {
   const [items, setItems] = useState<Item[]>([]);
 
   const handleIndexItems = () => {
-    axios.get<Item[]>("http://127.0.0.1:5000/items.json").then((response) => {
+    // Retrieve the JWT token from local storage or wherever it's stored
+    const token = localStorage.getItem('token');
+
+    // Configure the Axios request with the Authorization header
+    axios.get<Item[]>("http://127.0.0.1:5000/items.json", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((response) => {
       setItems(response.data);
       console.log("Fetched items:", response.data);
+    }).catch((error) => {
+      // Handle any errors that occur during the request
+      console.error("Error fetching items:", error);
     });
   };
 
