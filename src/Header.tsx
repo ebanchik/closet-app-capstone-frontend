@@ -1,16 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export function Header() {
   const navigate = useNavigate(); // Hook to navigate programmatically
+  const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
   const handleLogout = () => {
     // Remove the JWT token from local storage
     localStorage.removeItem('token');
-    // Redirect to the login page
-    navigate('/login');
-
+    // Set a flag in local storage to indicate a logout event
+    localStorage.setItem('shouldRefresh', 'true');
+    // Redirect to the homepage
+    navigate('/');
+    setShowLogoutMessage(true);
+    setTimeout(() => {
+      setShowLogoutMessage(false);
+    }, 3000);
   };
+
 
   return (
     <header>
@@ -24,6 +32,7 @@ export function Header() {
             <Link className="navbar-brand login" to="/login">LOGIN</Link>
             <button className="navbar-brand logout" onClick={handleLogout}>LOGOUT</button>
           </div>
+          {showLogoutMessage && <p className="logout-success-message">Logout Successful</p>}
         </div>
       </nav>
     </header>

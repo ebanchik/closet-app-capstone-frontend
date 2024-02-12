@@ -63,6 +63,11 @@ body {
   will-change: transform; /* Hint to the browser that the element will be transformed */
 }
 
+.login:hover,
+.logout:hover {
+  transform: scale(0.95); /* Scale down the button to 95% of its original size */
+}
+
 .home-button:hover, .holder-button:hover {
   transform: scale(0.95); /* Scale down the button to  95% of its original size */
 }
@@ -146,4 +151,32 @@ body {
   /* Remove the default button styling */
   background: transparent; /* Transparent background */
   border: none; /* No border */
+}
+
+.form-container {
+  font-family: 'Right Sans';
+  max-width:  400px; /* Adjust this value to your preference */
+  margin:  0 auto; /* Center the form container horizontally */
+}
+
+.login-text {
+  font-family: 'Right Sans';
+  text-align: center;
+}
+
+.message {
+  text-align: center; /* Center the text */
+  margin-bottom:  1rem; /* Add some space below the message */
+}
+
+.logout-success-message {
+  text-align: center;
+  color: rgb(255, 255, 255); /* Change the color to indicate success */
+  font-weight: bold;
+  margin-top:  1rem; /* Adjust the spacing as needed */
+}
+
+.index-header {
+  font-family: 'Right Sans';
+  text-decoration: underline;
 }

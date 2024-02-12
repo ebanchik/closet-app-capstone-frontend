@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+// import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 export interface Item {
@@ -16,17 +18,43 @@ interface ItemsIndexProps {
   items: Item[];
 }
 
+const isUserAuthenticated = () => {
+return !!localStorage.getItem('token');
+};
+
 export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
   console.log("Number of items:", props.items.length); // Log the number of items
+  // const location = useLocation();
 
+  useEffect(() => {
+    // Function to handle the refresh
+    const handleRefresh = () => {
+      if (localStorage.getItem('shouldRefresh') === 'true') {
+        window.location.reload();
+        localStorage.removeItem('shouldRefresh');
+      }
+    };
+
+    // Call the refresh function initially
+    handleRefresh();
+
+    // Clean up the listener on unmount
+    return () => {
+      // No cleanup needed in this case
+    };
+  }, []);
+
+  
   return (
     <section className='index'>
       <div className="homepage">
-        <h1 className='homepage-text'>
-          Armoire
-        </h1>
+        <h1 className='homepage-text'>Armoire</h1>
       </div>
-      <h1 className='index-header'>CURRENT WARDROBE:</h1>
+      {isUserAuthenticated() ? (
+        <h1 className='index-header'>CURRENT WARDROBE:</h1>
+      ) : (
+        <h1 className='index-header'>Please Login</h1>
+      )}
       <div className="row g-4">
         {props.items.map((item) => {
           console.log("Item:", item); // Log the item object

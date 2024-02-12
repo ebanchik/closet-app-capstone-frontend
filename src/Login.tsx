@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm: React.FC = () => {
+  const navigate = useNavigate(); // Hook to navigate programmatically
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -27,70 +30,50 @@ export const LoginForm: React.FC = () => {
       // Store the JWT token in local storage
       localStorage.setItem('token', data.token);
 
-      // Redirect to a protected page or show a success message
-      alert('Login successful!');
+      // Redirect to the homepage ("/")
+      navigate('/');
+
+      // Show a success message
+      setMessage('Login successful!');
     } catch (error) {
       console.error('Error during login:', error);
       // Show an error message to the user
-      alert('Login failed. Please check your credentials.');
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/logout', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      // Remove the JWT token from local storage
-      localStorage.removeItem('token');
-
-      // Redirect to the login page or show a success message
-      alert('Logout successful!');
-    } catch (error) {
-      console.error('Error during logout:', error);
-      // Show an error message to the user
-      alert('Logout failed. Please try again.');
+      setMessage('Login failed. Please check your credentials.');
     }
   };
 
   return (
     <div className='login-form'>
-      <h1>Login</h1>
+      <h1 className='login-text'>Login</h1>
+      {message && <p className="message">{message}</p>}
       <form id="loginForm">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="button" onClick={handleLogin}>Login</button>
-        <button type="button" onClick={handleLogout}>Logout</button>
+        <div className="form-container"> {/* Apply the CSS class here */}
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control" // Bootstrap class
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control" // Bootstrap class
+            />
+          </div>
+          <button type="button" onClick={handleLogin} className="btn btn-primary">Login</button>
+        </div>
       </form>
     </div>
   );
