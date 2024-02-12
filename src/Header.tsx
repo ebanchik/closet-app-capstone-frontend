@@ -1,6 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export function Header() {
+  const navigate = useNavigate(); // Hook to navigate programmatically
+
+  const handleLogout = () => {
+    // Remove the JWT token from local storage
+    localStorage.removeItem('token');
+    // Redirect to the login page
+    navigate('/login');
+
+  };
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg custom-header-bg" style={{ height: '80px', position: 'fixed', top: '0', zIndex:   1000 }}>
@@ -11,7 +22,7 @@ export function Header() {
           </button>
           <div className="navbar-buttons d-flex">
             <Link className="navbar-brand login" to="/login">LOGIN</Link>
-            <Link className="navbar-brand logout" to="/logout">LOGOUT</Link>
+            <button className="navbar-brand logout" onClick={handleLogout}>LOGOUT</button>
           </div>
         </div>
       </nav>
