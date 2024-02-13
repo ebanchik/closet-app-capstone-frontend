@@ -180,3 +180,20 @@ body {
   font-family: 'Right Sans';
   text-decoration: underline;
 }
+
+.new-item-form {
+  width: 300px;
+  color: antiquewhite;
+  text-align: center;
+  margin: 0 auto; 
+  padding-top: 25px;
+} 
+
+.new-item-header {
+  padding-top: 25px;
+  text-align: center;
+  color: antiquewhite;
+  font-family: 'Right Sans';
+  text-decoration: underline;
+}
+

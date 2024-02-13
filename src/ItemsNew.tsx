@@ -38,15 +38,35 @@ export function ItemsNew(): JSX.Element {
     event.preventDefault();
     console.log("Form Submitted");
 
-    // Create a FormData object from the form
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("No token found in local storage.");
+      return;
+    }
+
     const formData = new FormData(event.currentTarget);
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
+    // Get the file input element
+    const fileInput = fileInputRef.current;
+
+    // Add the filename to the FormData object if a file is selected
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const filename = fileInput.files[0].name;
+      formData.append("filename", filename);
+    }
 
     // Log the form data before submission
     console.log("Form Data (before submission):", Array.from(formData.entries()));
 
     console.log("Submitting form data to backend...");
     try {
-      const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData);
+      const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData, config);
       console.log("Item created successfully:", response.data);
       // Reset the form
       formRef.current?.reset();
@@ -58,41 +78,46 @@ export function ItemsNew(): JSX.Element {
 
   
 
-return (
-  <div>
-    <h1>New Item</h1>
-    <form ref={formRef} onSubmit={handleSubmit} encType="multipart/form-data">
-      <div>
-        Name: <input name="name" type="text" />
-      </div>
-      <div>
-        Brand: <input name="brand" type="text" />
-      </div>
-      <div>
-        Size: <input name="size" type="text" />
-      </div>
-      <div>
-        Color: <input name="color" type="text" />
-      </div>
-      <div>
-        Fit: <input name="fit" type="text" />
-      </div>
-      <div>
-        Category: 
-        <select name="category_id">
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.category_name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        {/* Input field for selecting a file */}
-        Image: <input ref={fileInputRef} type="file" name="image" accept="image/*" />
-      </div>
-      <button type="submit">Create item</button>
-    </form>
-  </div>
-);
-          }
+  return (
+    <div>
+      <h1 className="new-item-header">New Item</h1>
+      <form ref={formRef} onSubmit={handleSubmit} className='new-item-form' encType="multipart/form-data">
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">Name:</label>
+          <input name="name" type="text" className="form-control custom-input" id="exampleInputEmail1" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">Brand:</label>
+          <input name="brand" type="text" className="form-control custom-input" id="exampleInputPassword1" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword2" className="form-label">Size:</label>
+          <input name="size" type="text" className="form-control custom-input" id="exampleInputPassword2" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword3" className="form-label">Color:</label>
+          <input name="color" type="text" className="form-control custom-input" id="exampleInputPassword3" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword4" className="form-label">Fit:</label>
+          <input name="fit" type="text" className="form-control custom-input" id="exampleInputPassword4" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword5" className="form-label">Category:</label>
+          <select name="category_id" className="form-select">
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.category_name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword6" className="form-label">Image:</label>
+          <input ref={fileInputRef} type="file" name="image" className="form-control" id="exampleInputPassword6" accept="image/*" />
+        </div>
+        <button type="submit" className="btn btn-primary">Create item</button>
+      </form>
+    </div>
+  );
+            }  
