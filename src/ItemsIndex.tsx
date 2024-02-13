@@ -46,41 +46,43 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
 
 
   return (
-    <section className='index'>
+    <section className="index">
       <div className="homepage">
-        <h1 className='homepage-text'>Armoire</h1>
+        <h1 className="homepage-text">Armoire</h1>
       </div>
       {isUserAuthenticated() ? (
-        <h1 className='index-header'>CURRENT WARDROBE:</h1>
+        <h1 className="index-header">CURRENT WARDROBE:</h1>
       ) : (
-        <h1 className='index-header'>Please Login</h1>
+        <h1 className="index-header">Please Login</h1>
       )}
-      <div className="row g-4">
-        {props.items.map((item) => {
-          console.log("Item:", item); // Log the item object
-          try {
-            const firstImageSrc = item.filenames && item.filenames.length >  0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
+      <div className="container d-flex justify-content-center">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+          {props.items.map((item) => {
+            console.log("Item:", item); // Log the item object
+            try {
+              const firstImageSrc = item.filenames && item.filenames.length > 0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
 
-            return (
-              <div key={item.id} className="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div className="card h-100 custom-card-font" style={{ width: '18rem' }}>
-                  {firstImageSrc && <img className="card-img-top" src={firstImageSrc} alt="Item Image" />}
-                  <div className="card-body">
-                    <h5 className="card-title card-title-custom"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
-                    <p className="card-text">
-                      {item.brand}<br />
-                      {/* Add other item details here */}
-                    </p>
-                    {/* <Link to={`/item/${item.id}`} className="btn btn-primary">View Details</Link> */}
+              return (
+                <div key={item.id}>
+                  <div className="card h-100 custom-card-font">
+                    {firstImageSrc && <img className="card-img-top" src={firstImageSrc} alt="Item Image" />}
+                    <div className="card-body">
+                      <h5 className="card-title card-title-custom"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
+                      <p className="card-text">
+                        {item.brand}<br />
+                        {/* Add other item details here */}
+                      </p>
+                      {/* <Link to={`/item/${item.id}`} className="btn btn-primary">View Details</Link> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          } catch (error) {
-            console.error("Error rendering item:", error); // Log any rendering errors
-            return null; // Return null if there's an error
-          }
-        })}
+              );
+            } catch (error) {
+              console.error("Error rendering item:", error); // Log any rendering errors
+              return null; // Return null if there's an error
+            }
+          })}
+        </div>
       </div>
     </section>
   );
