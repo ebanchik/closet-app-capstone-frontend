@@ -40,7 +40,6 @@ export function ItemsNew(): JSX.Element {
 
     const token = localStorage.getItem('token');
     if (!token) {
-      console.error("No token found in local storage.");
       return;
     }
 
@@ -62,9 +61,9 @@ export function ItemsNew(): JSX.Element {
     }
 
     // Log the form data before submission
-    console.log("Form Data (before submission):", Array.from(formData.entries()));
+    // console.log("Form Data (before submission):", Array.from(formData.entries()));
 
-    console.log("Submitting form data to backend...");
+    // console.log("Submitting form data to backend...");
     try {
       const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData, config);
       console.log("Item created successfully:", response.data);

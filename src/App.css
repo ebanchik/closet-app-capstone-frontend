@@ -87,7 +87,7 @@ body {
 }
 
 .custom-card-font {
-  font-family: 'Right Sans', Arial, sans-serif; /* Use 'Arial' or another generic font as a fallback */
+  font-family: 'Object Sans', Arial, sans-serif; /* Use 'Arial' or another generic font as a fallback */
   text-align: center;
 }
 
@@ -97,26 +97,45 @@ body {
 
 .item-title {
   color: rgb(241, 255, 241);
-  font-family: 'Right Sans';
+  font-family: 'Object Sans';
   font-size: 100px;
 }
 
 .item-content {
-  font-family: 'Right Sans';
+  font-family: 'Object Sans';
   color: rgb(241, 255, 241);
   padding: 150px 25px 0px 25px;
   font-size: 30px;
+  animation: fadeInOut 1s ease-in-out;
+}
 
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-.image-wrapper {
-  position: absolute;
-  left: 400px; /* Move the image  100px to the right */
-  top: 275px; /* Move the image  50px up */
+
+.container-fluid { 
+  background-color: rgb(92, 17, 0) !important;
 }
+
+  .image-wrapper img {
+    width:  50%;
+    height: auto;
+    object-fit:contain; /* This will make sure the image covers the container fully */
+    object-position: center; /* This will center the image within its container */
+  }
+
+  /* In your CSS file */
+
+
 
 
 .index {
-  font-family: 'Right Sans', Helvetica, sans-serif;
+  font-family: 'Object Sans', Helvetica, sans-serif;
 }
 
 .index-header {
@@ -133,12 +152,35 @@ body {
   color: rgb(223, 252, 223);
 }
 
-.edit-button {
-  border-radius: 20px;
+.custom-edit-button {
+  background: transparent;
+  border-radius:  10px;
+  border:  2px solid #fff; /* Added border-style and border-color */
+  color: rgb(255,  255,  255);
+  font-size: 18px;
 }
-.delete-button {
-  border-radius: 20px !important;
+
+.delete-button { 
+  background: transparent;
+  border-radius: 10px;
+  border-color: rgb(255, 255, 255);
+  border-style: inherit;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
 }
+
+.button-container {
+  display: flex; /* This will arrange the buttons in a row */
+  gap:  10px; /* Optional: adds space between the buttons */
+}
+
+/* Optionally, if you want to stack them vertically on small screens, you can use media queries */
+@media (max-width:  600px) {
+  .button-container {
+    flex-direction: column; /* Stacks the buttons vertically */
+  }
+}
+
 
 
 
@@ -154,13 +196,13 @@ body {
 }
 
 .form-container {
-  font-family: 'Right Sans';
+  font-family: 'Object Sans';
   max-width:  400px; /* Adjust this value to your preference */
   margin:  0 auto; /* Center the form container horizontally */
 }
 
 .login-text {
-  font-family: 'Right Sans';
+  font-family: 'Object Sans';
   text-align: center;
 }
 
@@ -177,7 +219,7 @@ body {
 }
 
 .index-header {
-  font-family: 'Right Sans';
+  font-family: 'Object Sans';
   text-decoration: underline;
 }
 
@@ -193,7 +235,7 @@ body {
   padding-top: 25px;
   text-align: center;
   color: antiquewhite;
-  font-family: 'Right Sans';
+  font-family: 'Object Sans';
   text-decoration: underline;
 }
 

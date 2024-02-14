@@ -1,4 +1,3 @@
-// ItemPage.tsx
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -30,10 +29,6 @@ export const ItemPage: React.FC = () => {
     }
   }, [id]); // Dependency array includes id
 
-    const toggleUpdateFormVisibility = () => {
-    setShowUpdateForm(!showUpdateForm);
-  };
-
   // Function to fetch categories
   const fetchCategories = useCallback(async () => {
     try {
@@ -54,21 +49,39 @@ export const ItemPage: React.FC = () => {
     fetchCategories();
   }, [fetchCategories]); // Dependency array includes fetchCategories
 
-  const handleUpdateItem = async (formData: FormData, successCallback: () => void) => {
+  const handleUpdateItem = async (formData: FormData) => {
     if (!item) {
       console.error('Cannot update item: item data is not available');
       return;
     }
-
+  
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("No token found in local storage.");
+      return;
+    }
+  
     try {
-      const response = await axios.patch(`http://127.0.0.1:5000/items/${item.id}.json`, formData);
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          // 'Content-Type': 'multipart/form-data'
+        }
+      };
+      console.log('Updating item with formData:', Array.from(formData.entries()));
+      const response = await axios.patch(`http://127.0.0.1:5000/items/${item.id}.json`, formData, config);
       console.log('Item updated successfully:', response.data);
       // Refresh the item data after successful update
       fetchItemDetails();
-      successCallback();
+      // Assuming you have a success callback to handle UI changes
+      // successCallback();
     } catch (error) {
       console.error('Error updating item:', error);
     }
+  };
+
+  const toggleUpdateFormVisibility = () => {
+    setShowUpdateForm(!showUpdateForm);
   };
 
   if (!item || !categories) {
@@ -84,22 +97,22 @@ export const ItemPage: React.FC = () => {
       <p>Color: {item.color}</p>
       <p>Fit: {item.fit}</p>
       <p>Category: {item.category_name}</p>
+      <div className='button-container'>
+        <button className='custom-edit-button' onClick={toggleUpdateFormVisibility}>{showUpdateForm ? 'Hide Update Form' : 'Edit Item'}</button>
+        {/* Conditionally render the ItemsUpdate form */}
+        {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
+        <div className='delete-button'>
+          <button className='btn delete-button custom-delete-button'>
+            <DeleteButton itemId={item.id} />
+          </button>
+        </div>
+      </div>
       {/* Display images for the item */}
       <div className='image-wrapper'>
         {item.filenames && item.filenames.map((filename, index) => (
-          <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image" style={{ maxWidth: '500px', maxHeight: '500px' }} />
+          <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image"/>
         ))}
-      </div>
-      {/* Button to toggle the update form */}
-      <button className='edit-button' onClick={toggleUpdateFormVisibility}>{showUpdateForm ? 'Hide Update Form' : 'Edit Item'}</button>
-      {/* Conditionally render the ItemsUpdate form */}
-      {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
-      <div className='delete-button'>
-        <DeleteButton itemId={item.id} />
       </div>
     </div>
   );
 };
-
-
-export default ItemPage;

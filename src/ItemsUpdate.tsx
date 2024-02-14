@@ -1,35 +1,66 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Category } from "./ItemsNew"; // Make sure Category is exported from ItemsNew
 import { Item } from './ItemsIndex';
 
 interface ItemsUpdateProps {
   item: Item; // Receive the item as a prop
   categories: Category[]; // Receive the categories as a prop
-  onUpdateItem: (formData: FormData, successCallback: () => void) => void;
+  onUpdateItem: (formData: FormData) => void;
 }
 
 export function ItemsUpdate({ item, categories, onUpdateItem }: ItemsUpdateProps): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length >  0) {
+      setSelectedFile(event.target.files[0]);
+    }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Form Submitted");
-
-    // Create a FormData object from the form
+  
+    // Delay FormData creation until just before appending the file
     const formData = new FormData(event.currentTarget);
 
+    if (selectedFile) {
+      formData.append('image', selectedFile);
+    }
+
+    console.log("Form Data (immediately after creation):", Array.from(formData.entries()));
+  
     // Append the file to the FormData if a file is selected
     if (fileInputRef.current?.files && fileInputRef.current.files.length >   0) {
       formData.append('image', fileInputRef.current.files[0]);
+    } else {
+      formData.append('image', ''); // Add a placeholder value or null to indicate no change
     }
-
+  
+    // Log the form data before submission
     // Log the form data before submission
     console.log("Form Data (before submission):", Array.from(formData.entries()));
+    console.log("Form Data (after submission):", Array.from(formData.entries()));
+    
 
-    console.log("Submitting form data to backend...");
-    // Call the onUpdateItem prop with formData and successCallback
-    onUpdateItem(formData, () => formRef.current?.reset());
+    // Append the file to the FormData if a file is selected
+    if (fileInputRef.current?.files && fileInputRef.current.files.length >  0) {
+      formData.append('image', fileInputRef.current.files[0]);
+      console.log("Form Data after appending file:", Array.from(formData.entries()));
+    } else {
+      formData.append('image', '');
+    }
+    
+
+    // Log the form data before submission
+    console.log("Form Data (after submission):", Array.from(formData.entries()));
+    console.log("Form Data (after submission):", Array.from(formData.entries()));
+
+    console.log("Submitting form data to backend...", Array.from(formData.entries()));
+    // Call the onUpdateItem prop with formData
+    onUpdateItem(formData);
   };
 
   return (
@@ -63,7 +94,7 @@ export function ItemsUpdate({ item, categories, onUpdateItem }: ItemsUpdateProps
         </div>
         <div>
           {/* Input field for selecting a file */}
-          Image: <input ref={fileInputRef} type="file" name="image" accept="image/*" />
+          Image: <input ref={fileInputRef} type="file" name="image" accept="image/*" onChange={handleFileChange}/>
         </div>
         <button type="submit">Update item</button>
       </form>

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Header } from "./Header";
 import { Content } from "./Content";
 // import { ItemsIndex } from "./ItemsIndex";
-import { Footer } from "./Footer";
+// import { Footer } from "./Footer";
 import { ItemPage } from "./ItemPage";
 import { ItemsNew } from "./ItemsNew";
 import { LoginForm } from "./Login";
@@ -20,7 +20,7 @@ function App() {
           <Route path="/new-item" element={<ItemsNew />} />
           <Route path="/login" element={<LoginForm/>} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );

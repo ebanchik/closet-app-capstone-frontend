@@ -22,7 +22,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ itemId }) => {
   };
 
   return (
-    <button onClick={handleDelete}>Delete Item</button>
+    <button onClick={handleDelete} className='delete-button'>Delete Item</button>
   );
 };
 

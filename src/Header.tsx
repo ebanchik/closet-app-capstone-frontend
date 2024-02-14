@@ -21,7 +21,7 @@ export function Header() {
 
 
   return (
-    <header>
+    <header className='custom-header'>
       <nav className="navbar navbar-expand-lg custom-header-bg" style={{ height: '80px', position: 'fixed', top: '0', zIndex:   1000 }}>
         <div className="container-fluid d-flex justify-content-between align-items-center">
           <Link className="navbar-brand home-button" to="/">HOME</Link>
