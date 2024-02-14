@@ -63,7 +63,7 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
               const firstImageSrc = item.filenames && item.filenames.length > 0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
 
               return (
-                <div key={item.id}>
+                <div className='cards' key={item.id}>
                   <div className="card h-100 custom-card-font">
                     {firstImageSrc && <img className="card-img-top" src={firstImageSrc} alt="Item Image" />}
                     <div className="card-body">
@@ -83,6 +83,9 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
             }
           })}
         </div>
+      </div>
+      <div className="container d-flex justify-content-center mt-4">
+        <Link to="/new-item" className="add-button-2">+</Link>
       </div>
     </section>
   );

@@ -78,8 +78,8 @@ export function ItemsNew(): JSX.Element {
   
 
   return (
-    <div>
-      <h1 className="new-item-header">New Item</h1>
+    <div className="new-item-form">
+      <h1 className="new-item-header-container">New Item</h1>
       <form ref={formRef} onSubmit={handleSubmit} className='new-item-form' encType="multipart/form-data">
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Name:</label>
