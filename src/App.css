@@ -276,3 +276,12 @@ body {
   padding-top: 100px;
 } */
 
+.center-container {
+  position: absolute;
+  top: 800px; /* Adjust this value to move the container up or down */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
