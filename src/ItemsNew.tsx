@@ -21,6 +21,7 @@ export interface Category {
 
 export function ItemsNew(): JSX.Element {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [successMessage, setSuccessMessage] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -61,15 +62,15 @@ export function ItemsNew(): JSX.Element {
       formData.append("filename", filename);
     }
 
-    // Log the form data before submission
-    // console.log("Form Data (before submission):", Array.from(formData.entries()));
-
-    // console.log("Submitting form data to backend...");
     try {
       const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData, config);
       console.log("Item created successfully:", response.data);
       // Reset the form
       formRef.current?.reset();
+      setSuccessMessage("Item created successfully!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
     } catch (error) {
       console.error("Error creating item:", error);
     }
@@ -80,6 +81,7 @@ export function ItemsNew(): JSX.Element {
 
   return (
     <div className="new-item-form">
+      {successMessage && <div className="alert alert-success">{successMessage}</div>}
       <h1 className="new-item-header-container">New Item</h1>
       <form ref={formRef} onSubmit={handleSubmit} className='new-item-form' encType="multipart/form-data">
         <div className="mb-3">
