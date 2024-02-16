@@ -38,12 +38,6 @@ export function ItemsUpdate({ item, categories, onUpdateItem }: ItemsUpdateProps
     } else {
       formData.append('image', ''); // Add a placeholder value or null to indicate no change
     }
-  
-    // Log the form data before submission
-    // Log the form data before submission
-    console.log("Form Data (before submission):", Array.from(formData.entries()));
-    console.log("Form Data (after submission):", Array.from(formData.entries()));
-    
 
     // Append the file to the FormData if a file is selected
     if (fileInputRef.current?.files && fileInputRef.current.files.length >  0) {
@@ -53,38 +47,37 @@ export function ItemsUpdate({ item, categories, onUpdateItem }: ItemsUpdateProps
       formData.append('image', '');
     }
     
-
-    // Log the form data before submission
-    console.log("Form Data (after submission):", Array.from(formData.entries()));
-    console.log("Form Data (after submission):", Array.from(formData.entries()));
-
-    console.log("Submitting form data to backend...", Array.from(formData.entries()));
     // Call the onUpdateItem prop with formData
     onUpdateItem(formData);
   };
 
   return (
-    <div>
-      <h1>Update Item</h1>
-      <form ref={formRef} onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
-          Name: <input name="name" type="text" defaultValue={item.name} />
+    <div className="update-item-form">
+      <h1 className="update-item-header-container">Update Item</h1>
+      <form ref={formRef} onSubmit={handleSubmit} className='update-item-form' encType="multipart/form-data">
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Name:</label>
+          <input name="name" type="text" className="form-control" id="name" defaultValue={item.name} />
         </div>
-        <div>
-          Brand: <input name="brand" type="text" defaultValue={item.brand} />
+        <div className="mb-3">
+          <label htmlFor="brand" className="form-label">Brand:</label>
+          <input name="brand" type="text" className="form-control" id="brand" defaultValue={item.brand} />
         </div>
-        <div>
-          Size: <input name="size" type="text" defaultValue={item.size} />
+        <div className="mb-3">
+          <label htmlFor="size" className="form-label">Size:</label>
+          <input name="size" type="text" className="form-control" id="size" defaultValue={item.size} />
         </div>
-        <div>
-          Color: <input name="color" type="text" defaultValue={item.color} />
+        <div className="mb-3">
+          <label htmlFor="color" className="form-label">Color:</label>
+          <input name="color" type="text" className="form-control" id="color" defaultValue={item.color} />
         </div>
-        <div>
-          Fit: <input name="fit" type="text" defaultValue={item.fit} />
+        <div className="mb-3">
+          <label htmlFor="fit" className="form-label">Fit:</label>
+          <input name="fit" type="text" className="form-control" id="fit" defaultValue={item.fit} />
         </div>
-        <div>
-          Category:   
-          <select name="category_id" defaultValue={item.category_id}>
+        <div className="mb-3">
+          <label htmlFor="category_id" className="form-label">Category:</label>
+          <select name="category_id" className="form-select" id="category_id" defaultValue={item.category_id}>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.category_name}
@@ -92,12 +85,12 @@ export function ItemsUpdate({ item, categories, onUpdateItem }: ItemsUpdateProps
             ))}
           </select>
         </div>
-        <div>
-          {/* Input field for selecting a file */}
-          Image: <input ref={fileInputRef} type="file" name="image" accept="image/*" onChange={handleFileChange}/>
+        <div className="mb-3">
+          <label htmlFor="image" className="form-label">Image:</label>
+          <input ref={fileInputRef} type="file" name="image" className="form-control" id="image" accept="image/*" onChange={handleFileChange} />
         </div>
-        <button type="submit">Update item</button>
+        <button type="submit" className="btn btn-primary">Update item</button>
       </form>
     </div>
   );
-}
+            }  

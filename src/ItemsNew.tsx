@@ -40,12 +40,17 @@ export function ItemsNew(): JSX.Element {
     event.preventDefault();
     console.log("Form Submitted");
 
+    const formData = new FormData(event.currentTarget);
+
+    const formDataArray = Array.from(formData.entries());
+    console.log("Form Data:", formDataArray);
+
+
     const token = localStorage.getItem('token');
     if (!token) {
       return;
     }
 
-    const formData = new FormData(event.currentTarget);
     const config = {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -54,16 +59,17 @@ export function ItemsNew(): JSX.Element {
     };
 
     // Get the file input element
-    const fileInput = fileInputRef.current;
+    // const fileInput = fileInputRef.current;
 
     // Add the filename to the FormData object if a file is selected
-    if (fileInput && fileInput.files && fileInput.files.length > 0) {
-      const filename = fileInput.files[0].name;
-      formData.append("filename", filename);
-    }
+    // if (fileInput && fileInput.files && fileInput.files.length > 0) {
+    //   const filename = fileInput.files[0].name;
+    //   formData.append("filename", filename);
+    // }
 
     try {
-      const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData, config);
+      const formDataArray = Array.from(formData.entries());
+      console.log(formDataArray);      const response = await axios.post<NewItemResponse>("http://127.0.0.1:5000/items.json", formData, config);
       console.log("Item created successfully:", response.data);
       // Reset the form
       formRef.current?.reset();

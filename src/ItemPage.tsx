@@ -85,25 +85,6 @@ export const ItemPage: React.FC = () => {
     setShowUpdateForm(!showUpdateForm);
   };
 
-  const handleDeleteItem = async () => {
-    if (!item) {
-      console.error('Cannot delete item: item data is not available');
-      return;
-    }
-
-    const confirmed = window.confirm('Are you sure you want to delete this item?');
-    if (!confirmed) {
-      return; // If the user cancels, do nothing
-    }
-
-    try {
-      // Perform delete operation
-      await axios.delete(`http://127.0.0.1:5000/items/${item.id}.json`);
-      // Optionally, you can perform additional actions after successful deletion
-    } catch (error) {
-      console.error('Error deleting item:', error);
-    }
-  };
 
   if (!item || !categories) {
     return <div>Loading...</div>;
@@ -118,15 +99,17 @@ export const ItemPage: React.FC = () => {
       <p>Fit: {item.fit}</p>
       <p>Category: {item.category_name}</p>
       <div className='button-container'>
-        <button className='custom-edit-button' onClick={toggleUpdateFormVisibility}>{showUpdateForm ? 'Hide Update Form' : 'Edit Item'}</button>
-        {/* Conditionally render the ItemsUpdate form */}
-        {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
-        <div className='delete-button'>
-          <button className='btn delete-button custom-delete-button' onClick={handleDeleteItem}>
+        <button className='custom-edit-button' onClick={toggleUpdateFormVisibility}>
+          {showUpdateForm ? 'Hide Update Form' : 'Edit Item'}
+        </button>
+        <div className='delete-button-area'>
+          <button className='btn delete-button custom-delete-button'>
             <DeleteButton itemId={item.id} />
           </button>
         </div>
       </div>
+      {/* Conditionally render the ItemsUpdate form */}
+      {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
       {/* Display images for the item */}
       <div className='image-wrapper'>
         {item.filenames && item.filenames.map((filename, index) => (
@@ -135,4 +118,4 @@ export const ItemPage: React.FC = () => {
       </div>
     </div>
   );
-};
+        }  

@@ -150,6 +150,7 @@ body {
 .cards {
   padding-bottom: 50px;
 }
+
 .add-button-2 {
   font-family: 'Object Sans';
   padding-bottom: 50px !important;
@@ -167,36 +168,6 @@ body {
   color: rgb(223, 252, 223);
   padding-top: 240px;
 }
-
-.custom-edit-button {
-  background: transparent;
-  border-radius:  10px;
-  border:  2px solid #fff; /* Added border-style and border-color */
-  color: rgb(255,  255,  255);
-  font-size: 18px;
-}
-
-.delete-button { 
-  background: transparent;
-  border-radius: 10px;
-  border-color: rgb(255, 255, 255);
-  border-style: inherit;
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-}
-
-.button-container {
-  display: flex; /* This will arrange the buttons in a row */
-  gap:  10px; /* Optional: adds space between the buttons */
-}
-
-/* Optionally, if you want to stack them vertically on small screens, you can use media queries */
-@media (max-width:  600px) {
-  .button-container {
-    flex-direction: column; /* Stacks the buttons vertically */
-  }
-}
-
 
 .login-form {
   padding-top: 100px;
@@ -260,6 +231,39 @@ body {
   will-change: transform; /* Hint to the browser that the element will be transformed */
 }
 
+.custom-edit-button {
+  background: transparent;
+  border-radius:  10px;
+  border:  2px solid #fff; /* Added border-style and border-color */
+  color: rgb(255,  255,  255);
+  font-size: 18px;
+}
+
+.button-container {
+  display: flex; /* Stack items vertically */
+  justify-content: baseline; 
+  padding-bottom: 20px;
+}
+
+
+.delete-button {
+  background: transparent;
+  border-radius:  10px;
+  border-color: rgb(255,  255,  255); /* This is the color of the border */
+  border-style: solid; /* Set the border style to solid */
+  border-width:  2px; /* Set the border width */
+  color: rgb(255,  255,  255);
+  font-size:  18px;
+}
+
+
+/* Optionally, if you want to stack them vertically on small screens, you can use media queries */
+@media (max-width:  600px) {
+  .button-container {
+    flex-direction: column; /* Stacks the buttons vertically */
+  }
+}
+
 .center-container {
   position: absolute;
   top: 800px; /* Adjust this value to move the container up or down */
@@ -268,4 +272,16 @@ body {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+}
+
+
+
+.update-item-form {
+  width: 50%;
+}
+
+.update-item-header-container {
+  text-decoration: underline;
+  padding-top: 25px;
+  padding-bottom: 10px;
 }
