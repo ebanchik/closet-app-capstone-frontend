@@ -61,6 +61,7 @@ export const ItemPage: React.FC = () => {
       return;
     }
   
+  
     try {
       const config = {
         headers: {
@@ -84,6 +85,26 @@ export const ItemPage: React.FC = () => {
     setShowUpdateForm(!showUpdateForm);
   };
 
+  const handleDeleteItem = async () => {
+    if (!item) {
+      console.error('Cannot delete item: item data is not available');
+      return;
+    }
+
+    const confirmed = window.confirm('Are you sure you want to delete this item?');
+    if (!confirmed) {
+      return; // If the user cancels, do nothing
+    }
+
+    try {
+      // Perform delete operation
+      await axios.delete(`http://127.0.0.1:5000/items/${item.id}.json`);
+      // Optionally, you can perform additional actions after successful deletion
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
   if (!item || !categories) {
     return <div>Loading...</div>;
   }
@@ -102,7 +123,7 @@ export const ItemPage: React.FC = () => {
         {/* Conditionally render the ItemsUpdate form */}
         {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
         <div className='delete-button'>
-          <button className='btn delete-button custom-delete-button'>
+          <button className='btn delete-button custom-delete-button' onClick={handleDeleteItem}>
             <DeleteButton itemId={item.id} />
           </button>
         </div>

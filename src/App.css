@@ -39,6 +39,19 @@
   height: 100vh;
 }
 
+.homepage {
+  animation: fadeInOut 1s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 body {
  /* background-image: url('/assets/pearl-background.jpeg'); */
  background-color: rgb(92, 17, 0) !important;
@@ -53,6 +66,12 @@ body {
 
 .navbar-buttons {
   gap:   1px; /* Space between buttons */
+}
+
+.navbar-brand.logout {
+  /* Remove the default button styling */
+  background: transparent; /* Transparent background */
+  border: none; /* No border */
 }
 
 .home-button, .login, .logout {
@@ -76,13 +95,24 @@ body {
   transform: scale(0.95); /* Scale down the button to  95% of its original size */
 }
 
-/* In your CSS file */
 .home-button {
   padding:  10px  20px; /* Adjust the values as needed */
 }
 
-.index {
-  font-family: 'Object Sans', Helvetica, sans-serif;
+.container-fluid { 
+  background-color: rgb(92, 17, 0) !important;
+}
+
+/********************************* ItemsIndex *************************************/
+
+
+.index-header {
+  font-family: 'Object Sans';
+  color: rgb(241, 255, 241)!important;
+  font-size: 50px;
+  padding-bottom: 75px;
+  padding-top: 100px;
+  text-align: center;
 }
 
 .custom-card-font {
@@ -108,31 +138,14 @@ body {
   animation: fadeInOut 1s ease-in-out;
 }
 
-.homepage {
-  animation: fadeInOut 1s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.container-fluid { 
-  background-color: rgb(92, 17, 0) !important;
-}
 
 .image-wrapper img {
   width:  50%;
   height: auto;
   object-fit:contain; /* This will make sure the image covers the container fully */
-  object-position: center; /* This will center the image within its container */
+  object-position: center;
+  padding-top: 25px; /* This will center the image within its container */
 }
-
-  /* In your CSS file */
 
 .cards {
   padding-bottom: 50px;
@@ -145,20 +158,6 @@ body {
   font-size: 50px;
   transition: transform  0.3s ease; /* Smooth transition for the transform property */
   will-change: transform;
-}
-
-
-.index {
-  font-family: 'Object Sans', Helvetica, sans-serif;
-}
-
-.index-header {
-  font-family: 'Object Sans';
-  color: rgb(241, 255, 241)!important;
-  font-size: 50px;
-  padding-bottom: 75px;
-  padding-top: 100px;
-  text-align: center;
 }
 
 .homepage-text {
@@ -199,17 +198,9 @@ body {
 }
 
 
-
-
 .login-form {
   padding-top: 100px;
   color: white;
-}
-
-.navbar-brand.logout {
-  /* Remove the default button styling */
-  background: transparent; /* Transparent background */
-  border: none; /* No border */
 }
 
 .form-container {
@@ -240,6 +231,9 @@ body {
   text-decoration: underline;
 }
 
+/********************************* ItemPage *************************************/
+
+
 .new-item-form {
   width: 300px;
   color: antiquewhite;
@@ -257,12 +251,6 @@ body {
   text-decoration: underline;
 }
 
-.row.g-4 {
-  padding-left: 1%;
-  padding-right: 1%; 
-}
-
-
 .new-item:hover {
   transform: scale(0.8);
 }
@@ -271,10 +259,6 @@ body {
   transition: transform  0.3s ease; /* Smooth transition for the transform property */
   will-change: transform; /* Hint to the browser that the element will be transformed */
 }
-
-/* .new-item-form {
-  padding-top: 100px;
-} */
 
 .center-container {
   position: absolute;
