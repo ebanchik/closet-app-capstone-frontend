@@ -31,6 +31,7 @@ export function Header() {
           <div className="navbar-buttons d-flex">
             <Link className="navbar-brand login" to="/login">LOGIN</Link>
             <button className="navbar-brand logout" onClick={handleLogout}>LOGOUT</button>
+            <Link className="navbar-brand signup" to="/signup">SIGNUP</Link>
             <Link className="navbar-brand new-item" to="/new-item">+</Link>
           </div>
           {showLogoutMessage && <p className="logout-success-message">Logout Successful</p>}

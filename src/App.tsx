@@ -5,6 +5,7 @@ import { Content } from "./Content";
 import { ItemPage } from "./ItemPage";
 import { ItemsNew } from "./ItemsNew";
 import { LoginForm } from "./Login";
+import { SignupForm } from "./Signup";
 import './App.css';
 
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/item/:id" element={<ItemPage />} />
           <Route path="/new-item" element={<ItemsNew />} />
           <Route path="/login" element={<LoginForm/>} />
+          <Route path="/signup" element={<SignupForm/>} />
         </Routes>
         {/* <Footer /> */}
       </div>
