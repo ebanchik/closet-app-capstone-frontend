@@ -58,7 +58,7 @@ export const SignupForm: React.FC = () => {
 
   return (
     <div className='signup-form'>
-      <h1 className='signup-text'>Signup</h1>
+      <h1 className='signup-text'>SIGNUP</h1>
       {message && <p className="message">{message}</p>}
       <form id="signupForm">
         <div className="form-container"> {/* Apply the CSS class here */}

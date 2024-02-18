@@ -65,7 +65,8 @@ body {
 }
 
 .navbar-buttons {
-  gap:   1px; /* Space between buttons */
+  gap:   5px;
+  text-align: center; /* Space between buttons */
 }
 
 .navbar-brand.logout {
@@ -74,10 +75,10 @@ body {
   border: none; /* No border */
 }
 
-.home-button, .login, .logout {
+.home-button, .login, .logout .signup {
   flex:   1; /* Allow buttons to grow and shrink */
   text-align: center;
-  padding:   5px   15px;
+  /* padding:   5px   15px; */
   transition: transform  0.3s ease; /* Smooth transition for the transform property */
   will-change: transform; /* Hint to the browser that the element will be transformed */
 }
@@ -174,13 +175,23 @@ body {
   color: white;
 }
 
+.login-text {
+  font-family: 'Object Sans';
+  text-align: center;
+}
+
 .form-container {
   font-family: 'Object Sans';
   max-width:  400px; /* Adjust this value to your preference */
   margin:  0 auto; /* Center the form container horizontally */
 }
 
-.login-text {
+.signup-form {
+  padding-top: 100px;
+  color: #fff;
+}
+
+.signup-text {
   font-family: 'Object Sans';
   text-align: center;
 }

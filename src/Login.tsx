@@ -44,7 +44,7 @@ export const LoginForm: React.FC = () => {
 
   return (
     <div className='login-form'>
-      <h1 className='login-text'>Login</h1>
+      <h1 className='login-text'>LOGIN</h1>
       {message && <p className="message">{message}</p>}
       <form id="loginForm">
         <div className="form-container"> {/* Apply the CSS class here */}
@@ -57,7 +57,7 @@ export const LoginForm: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-control" // Bootstrap class
+              className="form-control custom-input-color" // Bootstrap class
             />
           </div>
           <div className="mb-3">
@@ -69,10 +69,10 @@ export const LoginForm: React.FC = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-control" // Bootstrap class
+              className="form-control custom-input-color" // Bootstrap class
             />
           </div>
-          <button type="button" onClick={handleLogin} className="btn btn-primary">Login</button>
+          <button type="button" onClick={handleLogin} className="btn btn-primary custom-login-button">Login</button>
         </div>
       </form>
     </div>
