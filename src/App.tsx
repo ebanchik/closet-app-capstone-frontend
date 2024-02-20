@@ -6,22 +6,26 @@ import { ItemPage } from "./ItemPage";
 import { ItemsNew } from "./ItemsNew";
 import { LoginForm } from "./Login";
 import { SignupForm } from "./Signup";
+import { useState } from "react";
 import './App.css';
 
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <Router>
       <div>
-        <Header />
+        <Header onSearch={setSearchTerm} />
         <Routes>
-          <Route path="/" element={<Content />} />
+          {/* Pass searchTerm to Content */}
+          <Route path="/" element={<Content searchTerm={searchTerm} />} />
+          {/* Define other routes as needed */}
           <Route path="/item/:id" element={<ItemPage />} />
           <Route path="/new-item" element={<ItemsNew />} />
-          <Route path="/login" element={<LoginForm/>} />
-          <Route path="/signup" element={<SignupForm/>} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
         </Routes>
-        {/* <Footer /> */}
       </div>
     </Router>
   );

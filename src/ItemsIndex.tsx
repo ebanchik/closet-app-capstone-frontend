@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-// import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 export interface Item {
@@ -16,15 +15,15 @@ export interface Item {
 
 interface ItemsIndexProps {
   items: Item[];
+  searchTerm: string;
 }
 
 const isUserAuthenticated = () => {
-return !!localStorage.getItem('token');
+  return !!localStorage.getItem('token');
 };
 
-export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
-  console.log("Number of items:", props.items.length); // Log the number of items
-  // const location = useLocation();
+export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element {
+  console.log("Number of items:", items.length); // Log the number of items
 
   useEffect(() => {
     // Function to handle the refresh
@@ -44,6 +43,12 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
     };
   }, []);
 
+  // Filtering items based on the searchTerm
+  const filteredItems = items.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.brand.toLowerCase().includes(searchTerm.toLowerCase())
+    // Add more conditions as needed for other item attributes you want to include in the search
+  );
 
   return (
     <div className="container">
@@ -63,11 +68,11 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
         )}
         <div className="container d-flex justify-content-center">
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
-            {props.items.map((item) => {
+            {filteredItems.map((item) => {
               console.log("Item:", item); // Log the item object
               try {
                 const firstImageSrc = item.filenames && item.filenames.length > 0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
-  
+
                 return (
                   <div className='cards' key={item.id}>
                     <div className="card h-100 custom-card-font">
@@ -98,6 +103,6 @@ export function ItemsIndex(props: ItemsIndexProps): JSX.Element {
       )}
     </div>
   );
-      }  
+}
 
 export default ItemsIndex;

@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { SearchBar } from './SearchBar'
 
-export function Header() {
+
+export function Header({ onSearch }: { onSearch: (searchTerm: string) => void }) {
   const navigate = useNavigate(); // Hook to navigate programmatically
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
+
+  const handleSearch = (searchTerm: string) => {
+    onSearch(searchTerm);
+    console.log('Searching for:', searchTerm);
+  };
 
   const handleLogout = () => {
     // Remove the JWT token from local storage
@@ -34,6 +41,9 @@ export function Header() {
             <Link className="navbar-brand signup" to="/signup">SIGNUP</Link>
             <Link className="navbar-brand new-item" to="/new-item">+</Link>
           </div>
+          <div>
+          <SearchBar onSearch={handleSearch} /> {/* Include the SearchBar component */}
+        </div>
           {showLogoutMessage && <p className="logout-success-message">Logout Successful</p>}
         </div>
       </nav>

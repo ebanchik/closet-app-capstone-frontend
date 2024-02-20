@@ -11,17 +11,19 @@ interface Item {
   fit: string;
   category_id: number;
   category_name: string;
-  filename?: string[]; // New attribute for filename
+  filenames?: string[]; // Ensure this matches the expected structure
 }
 
-export function Content() {
+interface ContentProps {
+  searchTerm: string; // Add this line
+}
+
+// Update the function signature to accept props
+export function Content({ searchTerm }: ContentProps) {
   const [items, setItems] = useState<Item[]>([]);
 
   const handleIndexItems = () => {
-    // Retrieve the JWT token from local storage or wherever it's stored
     const token = localStorage.getItem('token');
-
-    // Configure the Axios request with the Authorization header
     axios.get<Item[]>("http://127.0.0.1:5000/items.json", {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -30,19 +32,16 @@ export function Content() {
       setItems(response.data);
       console.log("Fetched items:", response.data);
     }).catch((error) => {
-      // Handle any errors that occur during the request
       console.error("Error fetching items:", error);
     });
   };
 
-  
   useEffect(handleIndexItems, []);
 
   return (
     <main>
-      {/* <ItemsNew onCreateItem={handleCreateItem} /> */}
-      {/* <ItemsUpdate onUpdateItem={handleUpdate} /> */}
-      <ItemsIndex items={items} />
+      {/* Pass searchTerm to ItemsIndex */}
+      <ItemsIndex items={items} searchTerm={searchTerm} />
     </main>
   );
 }
