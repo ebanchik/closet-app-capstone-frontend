@@ -1,4 +1,3 @@
-// SearchBar.tsx
 import React, { useState } from 'react';
 
 interface SearchBarProps {
@@ -8,21 +7,22 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    onSearch(searchTerm);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = e.target.value;
+    setSearchTerm(newSearchTerm);
+    onSearch(newSearchTerm); // Perform search as user types
   };
 
   return (
-    <form onSubmit={handleSearch} className="d-flex">
+    <div className="d-flex">
       <input
         type="search"
         className="form-control me-2"
         placeholder="Search"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleChange} // Use handleChange to dynamically search
       />
-      <button className="btn btn-outline-success" type="submit">Search</button>
-    </form>
+      {/* Removed the button since search happens on type */}
+    </div>
   );
 };

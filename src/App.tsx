@@ -6,16 +6,19 @@ import { ItemPage } from "./ItemPage";
 import { ItemsNew } from "./ItemsNew";
 import { LoginForm } from "./Login";
 import { SignupForm } from "./Signup";
+import { CustomCursor } from "./CustomCursor";
 import { useState } from "react";
 import './App.css';
 
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
+  
 
   return (
     <Router>
       <div>
+        <CustomCursor />
         <Header onSearch={setSearchTerm} />
         <Routes>
           {/* Pass searchTerm to Content */}

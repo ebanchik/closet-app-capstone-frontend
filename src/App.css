@@ -83,8 +83,13 @@ body {
   will-change: transform; /* Hint to the browser that the element will be transformed */
 }
 
+.login, .logout, .signup {
+  transition: transform 0.3s ease-in-out; /* Adjust time as needed */
+}
+
 .login:hover,
-.logout:hover {
+.logout:hover,
+.signup:hover {
   transform: scale(0.95); /* Scale down the button to 95% of its original size */
 }
 
@@ -303,4 +308,29 @@ body {
   text-decoration: underline;
   padding-top: 25px;
   padding-bottom: 10px;
+}
+
+
+
+body, button, a, input {
+  cursor: none !important;
+}
+
+#custom-cursor {
+  position: fixed;
+  width: 20px; /* Customize as needed */
+  height: 20px; /* Customize as needed */
+  background-color: black; /* Customize as needed */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  display: none;
+  transform: translate(-50%, -50%); /* Adjust the cursor position */
+}
+
+/* CustomCursor.css */
+#custom-cursor.hovered {
+  /* Example hover state changes */
+  transform: scale(1.5); /* Make the cursor larger when hovering */
+  background-color: red; /* Change cursor color on hover */
 }
