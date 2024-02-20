@@ -146,44 +146,39 @@ body {
 
 
 .image-wrapper img {
-  width:  50%;
-  height: auto;
-  object-fit:contain; /* This will make sure the image covers the container fully */
-  object-position: center;
-  padding-top: 25px; /* This will center the image within its container */
+  width: 100%; /* Use 100% width to fill the container */
+  max-height: 100%; /* Set max height to limit the image height */
+  object-fit: scale-down; /* Scale down the image to fit within the container */
+  object-position: center; /* Center the image within its container */
 }
 
 .card {
-  display: flex;
-  width: 600px; /* Fixed width */
-  height: 80%; /* Fixed height */
+  width: 300px; /* Fixed width */
   margin: auto; /* Center the card if inside a flexbox or grid */
-}
-
-.cards {
   display: flex;
-  flex: 1 0 100%; /* Adjust flex-basis as per requirement */
-  justify-content: center; /* Center cards when fewer in number */
-  max-width: 400px; /* Or any maximum width */
-  min-width: 300px;
+  flex-direction: column; /* Stack child elements vertically */
+  max-height: 500px; /* Maximum card height */
 }
 
 .card-img-container {
   width: 100%; /* Full width of the card */
-  padding-top: 56.25%; /* Aspect ratio of 16:9 */
-  position: relative; /* For absolute positioning of the image inside */
-  overflow: hidden; /* Ensure no part of the image spills out */
+  /* Set a max-height if you want to limit the image's height */
+  max-height: 300px; /* Adjust this value based on your design needs */
+  position: relative;
+  overflow: hidden; /* Hide the overflow to maintain the clean edges of the card */
 }
 
 .card-img-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Scales the image to cover the container */
+  width: 100%; /* Full width within the container */
+  height: auto; /* Height should be auto to maintain aspect ratio */
+  object-fit: contain; /* Contain the image within the container without cropping */
+  object-position: center top; /* Align the top of the image with the top of the container */
 }
 
+
+.row {
+  align-items: flex-start; /* Aligns items at the start of the container (top) */
+}
 
 
 

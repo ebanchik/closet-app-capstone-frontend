@@ -67,31 +67,28 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
           <h1 className="index-header">Please Login</h1>
         )}
         <div className="container d-flex justify-content-center">
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-4 justify-content-center">
+          <div className="row g-4 justify-content-center">
             {filteredItems.map((item) => {
-              console.log("Item:", item); // Log the item object
-              try {
-                const firstImageSrc = item.filenames && item.filenames.length > 0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
-
-                return (
-                  <div className='cards' key={item.id}>
-                    <div className="card h-100 custom-card-font">
+              const firstImageSrc = item.filenames && item.filenames.length > 0 ? `http://127.0.0.1:5000/uploads/${item.filenames[0]}` : undefined;
+  
+              return (
+                <div className='col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center' key={item.id}>
+                  <div className="card custom-card-font w-100">
+                    {/* Responsive Image Container */}
+                    <div className="card-img-container">
                       {firstImageSrc && <img className="card-img-top" src={firstImageSrc} alt="Item Image" />}
-                      <div className="card-body">
-                        <h5 className="card-title card-title-custom"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
-                        <p className="card-text">
-                          {item.brand}<br />
-                          {/* Add other item details here */}
-                        </p>
-                        {/* <Link to={`/item/${item.id}`} className="btn btn-primary">View Details</Link> */}
-                      </div>
+                    </div>
+                    <div className="card-body">
+                      <h5 className="card-title card-title-custom"><Link to={`/item/${item.id}`}>{item.name}</Link></h5>
+                      <p className="card-text">
+                        {item.brand}<br />
+                        {/* Additional item details here */}
+                      </p>
+                      {/* Optional link to item details */}
                     </div>
                   </div>
-                );
-              } catch (error) {
-                console.error("Error rendering item:", error); // Log any rendering errors
-                return null; // Return null if there's an error
-              }
+                </div>
+              );
             })}
           </div>
         </div>
@@ -104,5 +101,3 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
     </div>
   );
 }
-
-export default ItemsIndex;
