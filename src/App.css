@@ -148,9 +148,17 @@ body {
   padding-top: 25px; /* This will center the image within its container */
 }
 
-.cards {
-  padding-bottom: 50px;
+.card {
+  width: 300px; /* Fixed width */
+  height: 400px; /* Fixed height */
+  margin: auto; /* Center the card if inside a flexbox or grid */
 }
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    margin: 10px; /* Add more margin to prevent overlap */
+  }
+}
+
 
 .add-button-2 {
   font-family: 'Object Sans';
