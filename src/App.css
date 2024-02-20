@@ -154,15 +154,38 @@ body {
 }
 
 .card {
-  width: 300px; /* Fixed width */
-  height: 400px; /* Fixed height */
+  display: flex;
+  width: 600px; /* Fixed width */
+  height: 80%; /* Fixed height */
   margin: auto; /* Center the card if inside a flexbox or grid */
 }
-@media (min-width: 768px) and (max-width: 991px) {
-  .card {
-    margin: 10px; /* Add more margin to prevent overlap */
-  }
+
+.cards {
+  display: flex;
+  flex: 1 0 100%; /* Adjust flex-basis as per requirement */
+  justify-content: center; /* Center cards when fewer in number */
+  max-width: 400px; /* Or any maximum width */
+  min-width: 300px;
 }
+
+.card-img-container {
+  width: 100%; /* Full width of the card */
+  padding-top: 56.25%; /* Aspect ratio of 16:9 */
+  position: relative; /* For absolute positioning of the image inside */
+  overflow: hidden; /* Ensure no part of the image spills out */
+}
+
+.card-img-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scales the image to cover the container */
+}
+
+
+
 
 
 .add-button-2 {
@@ -334,3 +357,6 @@ body, button, a, input {
   transform: scale(1.5); /* Make the cursor larger when hovering */
   background-color: red; /* Change cursor color on hover */
 }
+
+
+

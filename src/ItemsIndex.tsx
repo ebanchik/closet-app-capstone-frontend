@@ -67,7 +67,7 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
           <h1 className="index-header">Please Login</h1>
         )}
         <div className="container d-flex justify-content-center">
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-4 justify-content-center">
             {filteredItems.map((item) => {
               console.log("Item:", item); // Log the item object
               try {
