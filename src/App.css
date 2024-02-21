@@ -157,13 +157,13 @@ body {
   margin: auto; /* Center the card if inside a flexbox or grid */
   display: flex;
   flex-direction: column; /* Stack child elements vertically */
-  max-height: 500px; /* Maximum card height */
+   /* Maximum card height */
 }
 
 .card-img-container {
   width: 100%; /* Full width of the card */
   /* Set a max-height if you want to limit the image's height */
-  max-height: 300px; /* Adjust this value based on your design needs */
+/* Adjust this value based on your design needs */
   position: relative;
   overflow: hidden; /* Hide the overflow to maintain the clean edges of the card */
 }
