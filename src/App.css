@@ -175,12 +175,14 @@ body {
   object-position: center top; /* Align the top of the image with the top of the container */
 }
 
-
 .row {
   align-items: flex-start; /* Aligns items at the start of the container (top) */
 }
 
-
+.select {
+  padding-bottom: 50px;
+  text-align: center;
+}
 
 
 .add-button-2 {
