@@ -25,6 +25,8 @@ const isUserAuthenticated = () => {
 export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element {
   const [sortOrder, setSortOrder] = useState('default'); // State to track sort order
   const [sortedAndFilteredItems, setSortedAndFilteredItems] = useState<Item[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const categories = [...new Set(items.map(item => item.category_name))].sort();
 
   useEffect(() => {
     // Function to handle the refresh
@@ -45,17 +47,18 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
   }, []);
 
   useEffect(() => {
-    const updatedItems = items.filter(item =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.brand.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const updatedItems = items
+    .filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                     item.brand.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter(item => selectedCategory ? item.category_name === selectedCategory : true);
+
 
     if (sortOrder === 'alphabetical') {
       updatedItems.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     setSortedAndFilteredItems(updatedItems);
-  }, [items, searchTerm, sortOrder]); 
+  }, [items, searchTerm, sortOrder, selectedCategory]); 
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOrder(event.target.value);
@@ -77,12 +80,20 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
         ) : (
           <h1 className="index-header">Please Login</h1>
         )}
-        <div className="select">
+        <div className="sort-selector">
             <select onChange={handleSortChange} value={sortOrder}>
               <option value="default">Default</option>
               <option value="alphabetical">Alphabetically</option>
             </select>
-          </div>
+        </div>
+        <div className="category-selector">
+          <select id="categoryFilter" value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
+            <option value="">All Categories</option>
+            {categories.map(category => (
+            <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+        </div>
         <div className="container d-flex justify-content-center">
           <div className="row g-4 justify-content-center">
             {sortedAndFilteredItems.map((item) => {

@@ -179,7 +179,12 @@ body {
   align-items: flex-start; /* Aligns items at the start of the container (top) */
 }
 
-.select {
+.sort-selector {
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+.category-selector {
   padding-bottom: 50px;
   text-align: center;
 }
