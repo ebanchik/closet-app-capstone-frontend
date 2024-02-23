@@ -80,19 +80,21 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
         ) : (
           <h1 className="index-header">Please Login</h1>
         )}
-        <div className="sort-selector">
-            <select onChange={handleSortChange} value={sortOrder}>
-              <option value="default">Default</option>
-              <option value="alphabetical">Alphabetically</option>
+        <div className='selectors'>
+          <div className="sort-selector">
+              <select onChange={handleSortChange} value={sortOrder}>
+                <option value="default">Sort</option>
+                <option value="alphabetical">Alphabetically</option>
+              </select>
+          </div>
+          <div className="category-selector">
+            <select id="categoryFilter" value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
+              <option value="">All Categories</option>
+              {categories.map(category => (
+              <option key={category} value={category}>{category}</option>
+              ))}
             </select>
-        </div>
-        <div className="category-selector">
-          <select id="categoryFilter" value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
-            <option value="">All Categories</option>
-            {categories.map(category => (
-            <option key={category} value={category}>{category}</option>
-            ))}
-          </select>
+          </div>
         </div>
         <div className="container d-flex justify-content-center">
           <div className="row g-4 justify-content-center">

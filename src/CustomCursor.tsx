@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './App.css'; // Make sure this import points to your actual CSS file
+import './App.css'; // Ensure this points to your CSS file
 
 export const CustomCursor: React.FC = () => {
   useEffect(() => {
@@ -12,30 +12,30 @@ export const CustomCursor: React.FC = () => {
       }
     };
 
+    window.addEventListener('mousemove', moveCursor);
+
+    // Target all buttons and links
+    const hoverElements = document.querySelectorAll('a, button');
+
     const addHoverEffect = () => {
       const cursor = document.getElementById('custom-cursor');
-      cursor?.classList.add('hovered');
+      if (cursor) cursor.classList.add('hovered');
     };
 
     const removeHoverEffect = () => {
       const cursor = document.getElementById('custom-cursor');
-      cursor?.classList.remove('hovered');
+      if (cursor) cursor.classList.remove('hovered');
     };
 
-    // Elements that should change the cursor on hover
-    const hoverElements = document.querySelectorAll('.hover-target');
-
-    hoverElements.forEach((elem) => {
+    hoverElements.forEach(elem => {
       elem.addEventListener('mouseenter', addHoverEffect);
       elem.addEventListener('mouseleave', removeHoverEffect);
     });
 
-    window.addEventListener('mousemove', moveCursor);
-
     // Cleanup
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      hoverElements.forEach((elem) => {
+      hoverElements.forEach(elem => {
         elem.removeEventListener('mouseenter', addHoverEffect);
         elem.removeEventListener('mouseleave', removeHoverEffect);
       });
