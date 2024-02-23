@@ -209,7 +209,7 @@ body {
 }
 
 .homepage-text {
-  font-size: 400px;
+  font-size: 500px;
   font-family: 'Lingkawi';
   text-align: center;
   color: rgb(223, 252, 223);
@@ -217,7 +217,7 @@ body {
 }
 
 .login-form {
-  padding-top: 100px;
+  padding-top: 250px;
   color: white;
 }
 
@@ -233,7 +233,7 @@ body {
 }
 
 .signup-form {
-  padding-top: 100px;
+  padding-top: 250px;
   color: #fff;
 }
 
@@ -342,7 +342,11 @@ body {
 
 
 body, button, a, input {
-  cursor: none !important;
+  cursor: none;
+}
+
+#custom-cursor {
+  cursor: auto;
 }
 
 #custom-cursor {
