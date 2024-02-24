@@ -1,48 +1,56 @@
-import React, { useEffect } from 'react';
-import './App.css'; // Ensure this points to your CSS file
+import { useEffect } from 'react';
 
-export const CustomCursor: React.FC = () => {
+export const CustomCursor = () => {
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
+    let frameId: number | undefined;
+
+    const moveCursor = (e : MouseEvent) => {
       const cursor = document.getElementById('custom-cursor');
-      if (cursor) {
+      if (!cursor) return;
+
+      // Cancel the previous animation frame to prevent stacking
+      if (frameId) cancelAnimationFrame(frameId);
+
+      // Update cursor position using requestAnimationFrame for smoother performance
+      frameId = requestAnimationFrame(() => {
         cursor.style.left = `${e.clientX}px`;
         cursor.style.top = `${e.clientY}px`;
         cursor.style.display = 'block';
-      }
+      });
     };
 
     window.addEventListener('mousemove', moveCursor);
 
-    // Target all buttons and links
-    const hoverElements = document.querySelectorAll('a, button');
-
+    // Functions for adding and removing 'hovered' class
     const addHoverEffect = () => {
       const cursor = document.getElementById('custom-cursor');
-      if (cursor) cursor.classList.add('hovered');
+      cursor?.classList.add('hovered');
     };
 
     const removeHoverEffect = () => {
       const cursor = document.getElementById('custom-cursor');
-      if (cursor) cursor.classList.remove('hovered');
+      cursor?.classList.remove('hovered');
     };
 
-    hoverElements.forEach(elem => {
+    // Apply hover effects to all links and buttons
+    document.querySelectorAll('a, button').forEach(elem => {
       elem.addEventListener('mouseenter', addHoverEffect);
       elem.addEventListener('mouseleave', removeHoverEffect);
     });
 
-    // Cleanup
+    // Cleanup function to remove event listeners and cancel animation frame
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      hoverElements.forEach(elem => {
+      document.querySelectorAll('a, button').forEach(elem => {
         elem.removeEventListener('mouseenter', addHoverEffect);
         elem.removeEventListener('mouseleave', removeHoverEffect);
       });
+
+      if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);
 
-  return <div id="custom-cursor"></div>;
+  return <div id="custom-cursor" style={{ position: 'fixed', pointerEvents: 'none', zIndex: 9999, display: 'none' }}></div>;
 };
 
 export default CustomCursor;
