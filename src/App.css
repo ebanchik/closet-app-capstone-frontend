@@ -241,6 +241,19 @@ body {
   font-size: 100px;
 }
 
+@media (max-width: 768px) {
+  .item-title {
+    font-size: 70px; /* Smaller font size for tablet screens */
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+  .item-title {
+    font-size: 50px; /* Even smaller font size for mobile screens */
+  }
+}
+
 .item-content {
     position: relative; /* Establishes positioning context */
     font-family: 'Object Sans';
