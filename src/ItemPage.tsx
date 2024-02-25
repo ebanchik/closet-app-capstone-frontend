@@ -91,31 +91,25 @@ export const ItemPage: React.FC = () => {
   }
 
   return (
-    <div className='item-content'>
-      <h1 className='item-title'>{item.name}</h1>
-      <p>Brand: {item.brand}</p>
-      <p>Size: {item.size}</p>
-      <p>Color: {item.color}</p>
-      <p>Fit: {item.fit}</p>
-      <p>Category: {item.category_name}</p>
-      <div className='button-container'>
-        <button className='custom-edit-button' onClick={toggleUpdateFormVisibility}>
-          {showUpdateForm ? 'Hide Update Form' : 'Edit Item'}
-        </button>
-        <div className='delete-button-area'>
-          <button className='btn delete-button custom-delete-button'>
-            <DeleteButton itemId={item.id} />
+      <div className='item-content'>
+        <h1 className='item-title'>{item.name}</h1>
+        <p>Brand: {item.brand}</p>
+        <p>Size: {item.size}</p>
+        <p>Color: {item.color}</p>
+        <p>Fit: {item.fit}</p>
+        <p>Category: {item.category_name}</p>
+        <div className='button-container'>
+          <button className='custom-edit-button' onClick={toggleUpdateFormVisibility}>
+            {showUpdateForm ? 'Hide Update Form' : 'Edit Item'}
           </button>
+          <DeleteButton itemId={item.id} /> {/* Adjusted for simplicity */}
         </div>
-      </div>
-      {/* Conditionally render the ItemsUpdate form */}
-      {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
-      {/* Display images for the item */}
-      <div className='image-wrapper'>
-        {item.filenames && item.filenames.map((filename, index) => (
+        {showUpdateForm && <ItemsUpdate item={item} categories={categories} onUpdateItem={handleUpdateItem} />}
+      <div className='image-wrapper'> {/* This will now be positioned next to the content */}
+        {item.filenames?.map((filename, index) => (
           <img key={index} src={`http://127.0.0.1:5000/uploads/${filename}`} alt="Item Image"/>
         ))}
       </div>
-    </div>
+      </div>
   );
-        }  
+        } 
