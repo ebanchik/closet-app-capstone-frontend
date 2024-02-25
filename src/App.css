@@ -241,45 +241,35 @@ body {
   font-size: 100px;
 }
 
-.content-container {
-  display: flex;
-  align-items: flex-start; /* Align items at the top */
-  gap: 20px; /* Space between item content and image */
-}
-
 .item-content {
-  font-family: 'Object Sans';
-  color: rgb(241, 255, 241);
-  padding: 150px 25px 0px 25px;
-  font-size: 30px;
-  animation: fadeInOut 1s ease-in-out;
-  flex: 1;
-}
-
-.image-wrapper {
-  margin-right: 800px;
-  margin-top: 500px;
-  flex: 1; /* Adjust based on your layout needs, this allows the image wrapper to also take up available space */
-}
-
-.image-wrapper img {
-  position: absolute;
-  top: 300px;
-  left: 350px;
-  width: 500px; /* Fixed width */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Adjust based on preference */
-}
-
-@media (max-width: 768px) {
-  .content-container {
-    flex-direction: column; /* Stack content vertically on smaller screens */
+    position: relative; /* Establishes positioning context */
+    font-family: 'Object Sans';
+    color: rgb(241, 255, 241);
+    padding: 150px 25px 0px 25px;
+    font-size: 30px;
+    animation: fadeInOut 1s ease-in-out;
   }
-
+  
   .image-wrapper img {
-    width: 100%; /* Full width on smaller screens */
+    position: absolute;
+    top: 295px; /* Adjust based on your layout */
+    left: 350px; /* Adjust based on your layout */
+    width: 500px; /* Fixed width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
   }
-}
+  
+
+  @media (max-width: 768px) {
+    .image-wrapper img {
+      position: static; /* Resets positioning to default, making it part of the document flow */
+      width: 100%; /* Adjusts the width to fit the container */
+      margin-top: 20px; /* Adds some space between the text and the image */
+      left: 0; /* Resets left positioning */
+      top: auto; /* Resets top positioning */
+    }
+  }
+  
 
 .new-item-form {
   width: 300px;
