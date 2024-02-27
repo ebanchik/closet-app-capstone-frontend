@@ -371,6 +371,10 @@ body, button, a, input {
   cursor: none;
 }
 
+button:hover, a:hover {
+  cursor: none !important; /* Hide the default cursor on hover */
+}
+
 #custom-cursor {
   cursor: auto;
 }

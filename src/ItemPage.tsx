@@ -1,3 +1,4 @@
+import { CustomCursor } from './CustomCursor';
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -92,6 +93,7 @@ export const ItemPage: React.FC = () => {
 
   return (
       <div className='item-content'>
+        <CustomCursor />
         <h1 className='item-title'>{item.name}</h1>
         <p>Brand: {item.brand}</p>
         <p>Size: {item.size}</p>
