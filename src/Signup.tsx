@@ -71,7 +71,8 @@ export const SignupForm: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-control" // Bootstrap class
+              className="form-control custom-signup-input
+              custom-signup-input" // Bootstrap class
             />
           </div>
           <div className="mb-3">
@@ -83,7 +84,7 @@ export const SignupForm: React.FC = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-control" // Bootstrap class
+              className="form-control custom-signup-input" // Bootstrap class
             />
           </div>
           <button type="button" onClick={handleSignup} className="btn btn-primary">Signup</button>

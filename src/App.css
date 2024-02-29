@@ -227,6 +227,12 @@ body {
   text-align: center;
 }
 
+.custom-signup-input {
+  background-color: transparent !important;
+  color: white !important;
+  border: none; /* Remove the border */
+}
+
 .message {
   text-align: center; /* Center the text */
   margin-bottom:  1rem; /* Add some space below the message */
