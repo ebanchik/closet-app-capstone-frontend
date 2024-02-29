@@ -204,6 +204,13 @@ body {
   text-align: center;
 }
 
+.custom-input-color {
+  background-color: transparent !important;
+  color: white !important;
+  border: none; /* Remove the border */
+}
+
+
 .form-container {
   font-family: 'Object Sans';
   max-width:  400px; /* Adjust this value to your preference */
