@@ -220,6 +220,10 @@ button:hover, a:hover {
   text-align: center;
 }
 
+.login-button {
+  color: white; /* Set the text color to white */
+}
+
 /********************************* SIGNUP *************************************/
 
 .custom-input-color {
