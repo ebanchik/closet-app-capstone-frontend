@@ -78,7 +78,7 @@ export function ItemsIndex({ items, searchTerm }: ItemsIndexProps): JSX.Element 
             <h1 className="index-header">CURRENT WARDROBE:</h1>
           </>
         ) : (
-          <h1 className="index-header">Please Login</h1>
+          <h1 className="index-header"><Link to="/login" className="login-button">Please Login</Link></h1>
         )}
         <div className='selectors'>
           <div className="sort-selector">
